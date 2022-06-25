@@ -78,7 +78,7 @@ function Auth() {
               .then((res) => {
                 if (res.data.message === "ok") {
                   localStorage.setItem("uid", res.data.uid);
-                  localStorage.setItem("mode", req.data.usertype);
+                  localStorage.setItem("mode", res.data.usertype);
                   localStorage.setItem("username", username);
                   if (res.data.usertype === "para") {
                     console.log(res.data);
