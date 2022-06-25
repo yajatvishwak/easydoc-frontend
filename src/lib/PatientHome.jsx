@@ -5,16 +5,23 @@ import axios from "axios";
 function PatientHome() {
   const [lat, setLat] = useState("");
   const [log, setLog] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [med, setMed] = useState(false);
+  const toggleDrawer = (uid) => {
+    setIsOpen((prevState) => !prevState);
+  };
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((pos) => {
       setLat(pos.coords.latitude.toFixed(2));
       setLog(pos.coords.longitude.toFixed(2));
     });
+    axios
+      .get("http://localhost:5000/getpatient/" + localStorage.getItem("uid"))
+      .then((res) => {
+        setMed(res.data.payload.username);
+      });
   }, []);
-  const [isOpen, setIsOpen] = useState(false);
-  const toggleDrawer = (uid) => {
-    setIsOpen((prevState) => !prevState);
-  };
 
   return (
     <>
@@ -26,10 +33,25 @@ function PatientHome() {
         className="p-5 h-[1000px]"
       >
         <div className="h-full">
-          <form className="flex flex-col gap-4 h-full">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              axios
+                .post("http://localhost:5000/updatemed", {
+                  uid: localStorage.getItem("uid"),
+                  med: med,
+                })
+                .then((res) => {
+                  if (res.data.message === "ok") alert("Done");
+                });
+            }}
+            className="flex flex-col gap-4 h-full"
+          >
             <div className="">Enter Medical Emergency Information: </div>
             <textarea
               type="text"
+              value={med}
+              onChange={(e) => setMed(e.target.value)}
               placeholder=""
               className=" p-4 rounded-xl w-full border"
             />
