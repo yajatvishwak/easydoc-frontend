@@ -55,12 +55,13 @@ function PatientHome() {
               placeholder=""
               className=" p-4 rounded-xl w-full border"
             />
-            <div
+            <button
+              type="submit"
               onClick={() => {}}
               className="p-3 mt-auto bg-blue-500 text-white rounded-2xl  text-center"
             >
               Submit
-            </div>
+            </button>
           </form>
         </div>
       </Drawer>

@@ -7,6 +7,7 @@ import axios from "axios";
 function Home() {
   const [lat, setLat] = useState("");
   const [log, setLog] = useState("");
+  const [qan, setqan] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenQR, setIsOpenQR] = useState(false);
   const [selectedUID, setSelectedUID] = useState("");
@@ -126,19 +127,27 @@ function Home() {
         className="p-5"
       >
         <div className="h-full">
-          <form className="flex flex-col gap-4 h-full">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              window.location.href = "/patient/" + qan;
+            }}
+            className="flex flex-col gap-4 h-full"
+          >
             <div className="text-2xl ">Enter Quick Access Number:</div>
             <input
               type="text"
+              onChange={(e) => setqan(e.target.value)}
               placeholder=""
               className="text-2xl  uppercase p-4 rounded-xl border"
             />
-            <div
+            <button
+              type="submit"
               onClick={() => {}}
               className="p-3 mt-auto bg-blue-500 text-white rounded-2xl text-center"
             >
               Submit
-            </div>
+            </button>
           </form>
         </div>
       </Drawer>

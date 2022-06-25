@@ -10,7 +10,7 @@ function Patient() {
   useEffect(() => {
     axios.get("http://localhost:5000/getpatient/" + uid).then((res) => {
       setName(res.data.payload.username);
-      setMed(res.data.payload.username);
+      setMed(res.data.payload.med);
     });
   }, []);
   return (

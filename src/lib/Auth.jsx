@@ -20,9 +20,10 @@ function Auth() {
               })
               .then((res) => {
                 if (res.data.message === "ok") {
-                  localStorage.setItem("uid", req.data.uid);
-                  localStorage.setItem("mode", req.data.usertype);
+                  localStorage.setItem("uid", res.data.uid);
+                  localStorage.setItem("mode", res.data.usertype);
                   localStorage.setItem("username", username);
+                  console.log("bru what");
                   if (res.data.usertype === "para") window.location.href = "/";
                   else window.location.href = "/phome";
                 }
